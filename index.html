@@ -1,63 +1,61 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>サウンド＆ビデオトラックツール</title>
-  <meta name="description" content="">
-  <meta name="keywords" content="">
-
-  <!-- OnsenUI -->
-   <link rel="stylesheet" href="./lib/onsenUI/onsen-css-components.css">
-   <link rel="stylesheet" href="./lib/onsenUI/onsen-ui.css">
-   <link rel="stylesheet" href="./lib/onsenUI/onsen-ui_theme.css">
-   <script src="./lib/onsenUI/onsenui.min.js"></script>
-
-  <!-- jQuery -->
-   <script src="./lib/jquery/jquery.min.js"></script>
-
-  <!-- zip.js -->
-   <script src="./lib/zip/zip.js"></script>
-
-  <!-- カスタムスタイル -->
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Track Manager</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <link rel="stylesheet" href="./lib/onsenUI/onsen-css-components.css">
+    <link rel="stylesheet" href="./lib/onsenUI/onsen-ui.css">
+    <link rel="stylesheet" href="./lib/onsenUI/onsen-ui_theme.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="./lib/zip/jszip.min.js"></script>
+    <script src="./lib/zip/FileSaver.min.js"></script>
+    <script src="./lib/jquery/jquery.min.js"></script>
+    <script src="./lib/onsenUI/onsenui.min.js"></script>
 </head>
 <body>
-  <ons-navigator id="appNavigator" page="mainPage.html"></ons-navigator>
-
-  <!-- メインページ -->
-  <template id="mainPage.html">
+<!-- OnsenUI Navigator for pages -->
+<ons-navigator var="navigator">
     <ons-page>
-      <ons-toolbar>
-        <div class="center">サウンド＆ビデオトラックツール</div>
-        <div class="right">
-          <ons-toolbar-button onclick="fn.openMenu()">設定</ons-toolbar-button>
-        </div>
-      </ons-toolbar>
-
-      <canvas id="visualizer" width="600" height="150"></canvas>
-
-      <audio id="audioPlayer" controls></audio>
-      <video id="videoPlayer" controls></video>
-
-      <div class="control-buttons">
-        <button id="prevTrack">前のトラック</button>
-        <button id="playPause">再生 / 一時停止</button>
-        <button id="nextTrack">次のトラック</button>
-        <button id="changeMode">再生モード変更</button>
-      </div>
-
-      <ons-fab id="addTrackFab">+</ons-fab>
+        <ons-toolbar>
+            <div class="center">Track Manager</div>
+        </ons-toolbar>
+        <!-- File Input for Soundtrack and Video -->
+        <ons-card>
+            <p>サウンドトラックファイル(.sti)を選択してください:</p>
+            <input type="file" id="stiFile" accept=".zip" />
+            <button onclick="loadSTIFile(document.getElementById('stiFile').files[0])">読み込み</button>
+        </ons-card>
+        <ons-card>
+            <p>ビデオトラックリストファイル(.vtl)を選択してください:</p>
+            <input type="file" id="vtlFile" accept=".zip" />
+            <button onclick="loadVTLFile(document.getElementById('vtlFile').files[0])">読み込み</button>
+        </ons-card>
+        <!-- Display Loaded Files -->
+        <ons-card id="loadedTracks">
+            <h3>読み込まれた音声/動画:</h3>
+            <ul id="trackList"></ul>
+        </ons-card>
+        <!-- Settings for Color & Visualization -->
+        <ons-card>
+            <p>サウンドビジュアライザーの色設定</p>
+            <input type="color" id="colorPicker" />
+            <button onclick="saveSettings()">保存</button>
+        </ons-card>
+        <!-- Save Tracks Button -->
+        <ons-card>
+            <button onclick="saveSTIFile([/* Data URLs of audio files */], 'track1.sti')">サウンドトラック保存</button>
+            <button onclick="saveVTLFile([/* Data URLs of video files */], 'track1.vtl')">ビデオトラック保存</button>
+        </ons-card>
     </ons-page>
-  </template>
-
-  <script src="script.js"></script>
-  <script src="db.js"></script>
-  <script src="sti_rw.js"></script>
-  <script src="vtl_rw.js"></script>
-  <script src="make.js"></script>
-  <script src="load.js"></script>
-  <script src="notification_ctrl.js"></script>
-  <script src="app.js"></script>
+</ons-navigator>
+<script src="make.js"></script>
+<script src="sti_rw.js"></script>
+<script src="vtl_rw.js"></script>
+<script src="db.js"></script>
+<script src="load.js"></script>
+<script src="notification_ctrl.js"></script>
 </body>
 </html>
