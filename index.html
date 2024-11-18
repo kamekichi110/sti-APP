@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>サウンド＆ビデオトラックツール</title>
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <!-- OnsenUI -->
+   <link rel="stylesheet" href="./lib/onsenUI/onsen-css-components.css">
+   <link rel="stylesheet" href="./lib/onsenUI/onsen-ui.css">
+   <link rel="stylesheet" href="./lib/onsenUI/onsen-ui_theme.css">
+   <script src="./lib/onsenUI/onsenui.min.js"></script>
+
+  <!-- jQuery -->
+   <script src="./lib/jquery/jquery.min.js"></script>
+
+  <!-- zip.js -->
+   <script src="./lib/zip/zip.js"></script>
+
+  <!-- カスタムスタイル -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <ons-navigator id="appNavigator" page="mainPage.html"></ons-navigator>
+
+  <!-- メインページ -->
+  <template id="mainPage.html">
+    <ons-page>
+      <ons-toolbar>
+        <div class="center">サウンド＆ビデオトラックツール</div>
+        <div class="right">
+          <ons-toolbar-button onclick="fn.openMenu()">設定</ons-toolbar-button>
+        </div>
+      </ons-toolbar>
+
+      <canvas id="visualizer" width="600" height="150"></canvas>
+
+      <audio id="audioPlayer" controls></audio>
+      <video id="videoPlayer" controls></video>
+
+      <div class="control-buttons">
+        <button id="prevTrack">前のトラック</button>
+        <button id="playPause">再生 / 一時停止</button>
+        <button id="nextTrack">次のトラック</button>
+        <button id="changeMode">再生モード変更</button>
+      </div>
+
+      <ons-fab id="addTrackFab">+</ons-fab>
+    </ons-page>
+  </template>
+
+  <script src="script.js"></script>
+  <script src="db.js"></script>
+  <script src="sti_rw.js"></script>
+  <script src="vtl_rw.js"></script>
+  <script src="make.js"></script>
+  <script src="load.js"></script>
+  <script src="notification_ctrl.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
